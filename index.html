@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="mg" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-cms="siteTitle">Sekoly Matihanina Lycée &amp; Université</title>
+  <meta name="description" data-cms="metaDesc" content="Sekoly matihanina manomana ny tanora ho amin'ny hoavy mamiratra. Fampianarana manara-penitra sy fitaovana arifomba.">
+  <meta name="keywords" data-cms="metaKeywords" content="sekoly, fampianarana, madagascar, university, lycee, fanadinana, devwebia">
+  <!-- Tailwind CSS v4 -->
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Firebase Compat SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="firebase.js"></script>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1e40af">
+  <link rel="apple-touch-icon" href="icon.svg">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans selection:bg-blue-600 selection:text-white">
+
+  <!-- HEADER / NAVBAR -->
+  <header class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-800 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div id="logo-container" data-cms="siteLogo" class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 text-white flex items-center justify-center font-black text-2xl shadow-lg shadow-blue-500/20 group-hover:scale-105 transition transform">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <div>
+          <span data-cms="siteTitle" class="font-black text-xl tracking-tight block text-white">Sekoly Matihanina</span>
+          <span data-cms="siteSlogan" class="text-xs text-blue-400 font-medium block">Maintimolaly sy Hoavy Mamiratra</span>
+        </div>
+      </a>
+      <nav class="hidden lg:flex items-center gap-6 text-sm font-semibold text-slate-300">
+        <a href="#hero" class="hover:text-blue-400 transition">Fandraisana</a>
+        <a href="#presentation" class="hover:text-blue-400 transition">Sekoly</a>
+        <a href="#formations" class="hover:text-blue-400 transition">Fampianarana</a>
+        <a href="#enseignants" class="hover:text-blue-400 transition">Mpampianatra</a>
+        <a href="#programmes" class="hover:text-blue-400 transition">Programa</a>
+        <a href="#tarifs" class="hover:text-blue-400 transition">Sarim-pianarana</a>
+        <a href="#temoignages" class="hover:text-blue-400 transition">Teny Mpanjifa</a>
+        <a href="#faq" class="hover:text-blue-400 transition">FAQ</a>
+        <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button id="pwa-install-btn" class="hidden bg-slate-800 hover:bg-slate-700 text-blue-400 font-semibold text-xs px-3 py-2 rounded-xl border border-slate-700 transition flex items-center gap-2">
+          <i class="fa-solid fa-mobile-screen-button"></i> <span>Apetraho amin'ny Finday</span>
+        </button>
+        <a href="#inscription" class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm px-5 py-2.5 rounded-xl shadow-lg shadow-blue-600/30 transition flex items-center gap-2">
+          <i class="fa-solid fa-user-plus"></i> <span>Fidirana Online</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 1. HERO SECTION -->
+  <section id="hero" class="relative py-20 lg:py-28 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white overflow-hidden border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <span data-cms="siteSlogan" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30 mb-6 backdrop-blur">
+          ✨ Fampianarana Manara-penitra sy Matihanina
+        </span>
+        <h1 data-cms="heroTitle" class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-6 bg-gradient-to-r from-white via-slate-100 to-blue-200 bg-clip-text text-transparent">
+          Azo antoka ny hoavin'ny zanakao sy ny fianarany
+        </h1>
+        <p data-cms="heroSubtitle" class="text-base sm:text-lg text-slate-300 mb-8 max-w-xl leading-relaxed">
+          Sekoly feno sy matihanina manana traikefa ampolony taona. Mitondra fampianarana miompana amin'ny fahaizana amam-pahalalana, fahaiza-miaina, ary teknolojia vaovao.
+        </p>
+        <div class="flex flex-wrap gap-4 items-center">
+          <a href="#inscription" data-cms="heroCta" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-xl shadow-xl shadow-blue-600/40 transition hover:-translate-y-0.5 flex items-center gap-3 text-base">
+            <i class="fa-solid fa-pen-nib"></i> Misoratra Anarana Izao
+          </a>
+          <a data-cms-wa-link href="https://wa.me/261340000000" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-emerald-400 font-bold px-6 py-4 rounded-xl border border-slate-700 transition flex items-center gap-3 text-base">
+            <i class="fa-brands fa-whatsapp text-xl"></i> Hanohatra amin'ny WhatsApp
+          </a>
+        </div>
+      </div>
+      <div class="relative flex justify-center">
+        <div class="w-full max-w-lg bg-slate-900/80 border border-slate-800 p-8 rounded-3xl shadow-2xl backdrop-blur relative overflow-hidden">
+          <div id="hero-img-box" class="mb-6 rounded-2xl overflow-hidden bg-slate-800 border border-slate-700 text-center">
+            <img id="hero-custom-img" data-cms="heroImage" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&auto=format&fit=crop&q=80" class="w-full h-56 object-cover hover:scale-105 transition duration-500">
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
+            <i class="fa-solid fa-paper-plane text-blue-400"></i> Mandefa Fanontaniana Mivantana
+          </h3>
+          <p class="text-xs text-slate-400 mb-6">Fenoy ireto hanatanterahana ny fifandraisana haingana amin'ny sekoly.</p>
+          <form id="hero-form" class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Anarana sy Fanampiny</label>
+              <input type="text" id="hero-name" required placeholder="ohatra: Rakoto Jean" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 transition">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Laharana Finday</label>
+              <input type="tel" id="hero-phone" required placeholder="034 00 000 00" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 transition">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Taranja na Katagoria tiana ho fantatra</label>
+              <textarea id="hero-msg" rows="2" required placeholder="Manontany momba ny fidirana sy ny sarim-pianarana..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 transition"></textarea>
+            </div>
+            <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black py-3.5 rounded-xl shadow-lg shadow-emerald-500/20 transition flex items-center justify-center gap-2 text-sm">
+              <i class="fa-brands fa-whatsapp text-lg"></i> Alefaso amin'ny WhatsApp sekoly
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. PRESENTATION SECTION -->
+  <section id="presentation" class="py-24 bg-white text-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="space-y-6">
+          <span class="text-xs font-bold text-blue-600 bg-blue-50 border border-blue-200 px-3 py-1 rounded-full uppercase tracking-wider">Momba ny Sekoly</span>
+          <h2 data-cms="aboutTitle" class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">Tantaran'ny Sekoly sy Teny avy amin'ny Mpitantana</h2>
+          <div class="prose text-slate-600 text-base leading-relaxed space-y-4">
+            <p id="about-text-1">
+              Naorina tamin'ny taona 2010 ny Sekolinay miaraka amin'ny vinam-pampianarana vaovao mikendry ny hanome fahaiza-manao matanjaka ho an'ny mpianatra rehetra. Miaraka amin'ny mpampianatra za-draharaha sy fitantanana mavitrika, neken'ny Fanjakana sy ireo fikambanana iraisam-pirenena ny kalitaom-pampianaranay.
+            </p>
+            <p id="about-text-more" class="hidden">
+              Manana efitrano fianarana mihoatra ny 30 nekena manara-penitra izahay, miaraka amin'ny laboratoara informatika avo lenta, trano famakiam-boky maoderina, ary kianja fanaovam-psport lehibe. Ny tanjonay dia ny hamolavola tanora manana fahaizana amam-pahalalana, fitiavan-tanindrazana ary fahaiza-miaina amin'ny fiarahamonina.
+            </p>
+            <button id="read-more-btn" onclick="toggleReadMore('about-text-more', this)" class="text-blue-600 font-bold hover:underline inline-flex items-center gap-1 cursor-pointer text-sm">
+              <span>Jereo ny tohiny</span> <i class="fa-solid fa-chevron-down text-xs"></i>
+            </button>
+          </div>
+          <div class="grid sm:grid-cols-3 gap-4 pt-4 border-t border-slate-100">
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/80">
+              <div class="text-3xl font-black text-blue-600">15+</div>
+              <div class="text-xs text-slate-500 font-medium">Taona Niasana</div>
+            </div>
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/80">
+              <div class="text-3xl font-black text-blue-600">98%</div>
+              <div class="text-xs text-slate-500 font-medium">Taha Pahombiazana</div>
+            </div>
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/80">
+              <div class="text-3xl font-black text-blue-600">2,500+</div>
+              <div class="text-xs text-slate-500 font-medium">Mpianatra Nahazo Diplaoina</div>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&auto=format&fit=crop&q=80" class="rounded-3xl shadow-xl w-full h-64 object-cover">
+          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&auto=format&fit=crop&q=80" class="rounded-3xl shadow-xl w-full h-64 object-cover mt-8">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. FORMATIONS / COURS SECTION -->
+  <section id="formations" class="py-24 bg-slate-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="text-xs font-bold text-blue-400 bg-blue-900/50 border border-blue-500/30 px-3 py-1 rounded-full uppercase tracking-wider">Katalaojin'ny Fampianarana</span>
+      <h2 data-cms="coursesTitle" class="text-3xl sm:text-4xl font-black text-white mt-3 mb-4">Fampianarana sy Taranja Atolotra</h2>
+      <p data-cms="coursesSubtitle" class="text-slate-400 max-w-2xl mx-auto mb-16 text-sm sm:text-base">Mifidiana amin'ireo taranja sy lalana mifanaraka amin'ny vinanao sy ny tanjonao.</p>
+      <div id="courses-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+        <!-- Dynamic multi-image course cards loaded via JS or default static -->
+        <div class="bg-slate-800/80 border border-slate-700/80 rounded-3xl overflow-hidden hover:border-blue-500 transition duration-300 shadow-xl flex flex-col justify-between">
+          <div>
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=crop&q=80" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <span class="text-xs font-bold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-lg border border-blue-500/20">Informatique &amp; Web</span>
+              <h3 class="text-xl font-bold text-white mt-3 mb-2">Fampianarana Computer &amp; Coding</h3>
+              <p class="text-slate-300 text-sm leading-relaxed mb-4">Programmation, Réseaux, sy Design graphique maoderina ampiasaina amin'ny orinasa.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-slate-700/50 mt-auto">
+            <a data-cms-wa-link href="https://wa.me/261340000000?text=Manontany%20momba%20ny%20Cours%20Informatique" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl shadow transition flex items-center justify-center gap-2 text-sm">
+              <i class="fa-brands fa-whatsapp"></i> Hanohatra momba ity cours ity
+            </a>
+          </div>
+        </div>
+        <div class="bg-slate-800/80 border border-slate-700/80 rounded-3xl overflow-hidden hover:border-blue-500 transition duration-300 shadow-xl flex flex-col justify-between">
+          <div>
+            <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=600&auto=format&fit=crop&q=80" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20">Génie &amp; Sciences</span>
+              <h3 class="text-xl font-bold text-white mt-3 mb-2">Siansa sy Teknika Avo Lenta</h3>
+              <p class="text-slate-300 text-sm leading-relaxed mb-4">Lalana siantifika feno manomana amin'ny baccalauréat sy ny ambaratonga ambony.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-slate-700/50 mt-auto">
+            <a data-cms-wa-link href="https://wa.me/261340000000?text=Manontany%20momba%20ny%20Cours%20Sciences" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl shadow transition flex items-center justify-center gap-2 text-sm">
+              <i class="fa-brands fa-whatsapp"></i> Hanohatra momba ity cours ity
+            </a>
+          </div>
+        </div>
+        <div class="bg-slate-800/80 border border-slate-700/80 rounded-3xl overflow-hidden hover:border-blue-500 transition duration-300 shadow-xl flex flex-col justify-between">
+          <div>
+            <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&auto=format&fit=crop&q=80" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <span class="text-xs font-bold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/20">Langues &amp; Management</span>
+              <h3 class="text-xl font-bold text-white mt-3 mb-2">Teny Bedy sy Fitantanana</h3>
+              <p class="text-slate-300 text-sm leading-relaxed mb-4">Anglisy, Frantsay, Management d'Entreprise ho an'ny fahaiza-miasa iraisam-pirenena.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-slate-700/50 mt-auto">
+            <a data-cms-wa-link href="https://wa.me/261340000000?text=Manontany%20momba%20ny%20Cours%20Langues" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-bold py-3 rounded-xl shadow transition flex items-center justify-center gap-2 text-sm">
+              <i class="fa-brands fa-whatsapp"></i> Hanohatra momba ity cours ity
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. ENSEIGNANTS SECTION -->
+  <section id="enseignants" class="py-24 bg-slate-50 text-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="text-xs font-bold text-blue-600 bg-blue-100 border border-blue-200 px-3 py-1 rounded-full uppercase tracking-wider">Ekipa Pédagogique</span>
+      <h2 data-cms="teachersTitle" class="text-3xl sm:text-4xl font-black text-slate-900 mt-3 mb-4">Ireo Mpampianatra sy Fitantanana</h2>
+      <p data-cms="teachersSubtitle" class="text-slate-600 max-w-2xl mx-auto mb-16 text-sm sm:text-base">Mpanabe manana diplaoina ambony sy traikefa an-taonany maro.</p>
+      <div id="teachers-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
+        <!-- Dynamic Teacher cards -->
+        <div class="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&auto=format&fit=crop&q=80" class="w-full h-56 object-cover">
+          <div class="p-5">
+            <h3 class="font-black text-slate-900 text-lg">Dr. Rasoanaivo Bakoly</h3>
+            <p class="text-xs font-semibold text-blue-600 mb-2">Talena Pédagogique (Docteur en Éducation)</p>
+            <p class="text-xs text-slate-500 mb-4">Za-draharaha 18 taona amin'ny fitantanana sekoly sy ny fanavaozana fampianarana.</p>
+            <a data-cms-wa-link href="https://wa.me/261340000000?text=Fifandraisana%20Direction" class="w-full bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-700 font-bold py-2 rounded-xl text-xs transition flex items-center justify-center gap-2">
+              <i class="fa-regular fa-envelope"></i> Hifandray Mivantana
+            </a>
+          </div>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&auto=format&fit=crop&q=80" class="w-full h-56 object-cover">
+          <div class="p-5">
+            <h3 class="font-black text-slate-900 text-lg">Prof. Randria Jean Marc</h3>
+            <p class="text-xs font-semibold text-blue-600 mb-2">Mpampianatra Mathématiques &amp; Physique</p>
+            <p class="text-xs text-slate-500 mb-4">Manomana ny mpianatra amin'ny fanadinana Baccalauréat sy Concours Grandes Écoles.</p>
+            <a data-cms-wa-link href="https://wa.me/261340000000?text=Fifandraisana%20Prof%20Math" class="w-full bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-700 font-bold py-2 rounded-xl text-xs transition flex items-center justify-center gap-2">
+              <i class="fa-regular fa-envelope"></i> Hifandray Mivantana
+            </a>
+          </div>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition">
+          <img src="https://images.unsplash.com/photo-1580894732413-a7237a344933?w=500&auto=format&fit=crop&q=80" class="w-full h-56 object-cover">
+          <div class="p-5">
+            <h3 class="font-black text-slate-900 text-lg">Mme. Ravelo Sarah</h3>
+            <p class="text-xs font-semibold text-blue-600 mb-2">Mpampianatra Anglisy &amp; Communication</p>
+            <p class="text-xs text-slate-500 mb-4">Expert certified TOEFL/IELTS, mampianatra teny anglisy matihanina.</p>
+            <a data-cms-wa-link href="https://wa.me/261340000000?text=Fifandraisana%20Prof%20Anglais" class="w-full bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-700 font-bold py-2 rounded-xl text-xs transition flex items-center justify-center gap-2">
+              <i class="fa-regular fa-envelope"></i> Hifandray Mivantana
+            </a>
+          </div>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80" class="w-full h-56 object-cover">
+          <div class="p-5">
+            <h3 class="font-black text-slate-900 text-lg">Ing. Andria Tahina</h3>
+            <p class="text-xs font-semibold text-blue-600 mb-2">Responsable Informatique &amp; Web</p>
+            <p class="text-xs text-slate-500 mb-4">Mpanazatra amin'ny coding, intelligence artificielle sy développement d'application.</p>
+            <a data-cms-wa-link href="https://wa.me/261340000000?text=Fifandraisana%20Prof%20IT" class="w-full bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-700 font-bold py-2 rounded-xl text-xs transition flex items-center justify-center gap-2">
+              <i class="fa-regular fa-envelope"></i> Hifandray Mivantana
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. PROGRAMMES SECTION -->
+  <section id="programmes" class="py-24 bg-white text-slate-800 border-t border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="text-xs font-bold text-blue-600 bg-blue-50 border border-blue-200 px-3 py-1 rounded-full uppercase tracking-wider">Fandaharam-potoana sy Hetsika</span>
+        <h2 data-cms="programsTitle" class="text-3xl sm:text-4xl font-black text-slate-900 mt-3">Fandaharam-pianarana sy Activity Parascolaires</h2>
+        <p data-cms="programsSubtitle" class="text-slate-600 max-w-2xl mx-auto mt-2 text-sm sm:text-base">Mizara amin'ny fampianarana an-davitrisany sy hetsika ara-kolontsaina ary ara-panatanjahantena.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-slate-50 p-8 rounded-3xl border border-slate-200/80 hover:shadow-lg transition">
+          <div class="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-xl font-bold mb-6 shadow-md shadow-blue-500/20">
+            <i class="fa-solid fa-calendar-days"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">Fandaharam-potoana Voalanjalanja</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mb-6">Ora fianarana milamina, tsy manome trotraka ny mpianatra, miaraka amin'ny fotoana famerenana sy devoir surveillé.</p>
+        </div>
+        <div class="bg-slate-50 p-8 rounded-3xl border border-slate-200/80 hover:shadow-lg transition">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-xl font-bold mb-6 shadow-md shadow-emerald-500/20">
+            <i class="fa-solid fa-futbol"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">Sport sy Kolontsaina</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mb-6">Klioba basket, football, dihy, mozika ary teatra. Hetsika isan-kerinandro hampitomboana ny talenta.</p>
+        </div>
+        <div class="bg-slate-50 p-8 rounded-3xl border border-slate-200/80 hover:shadow-lg transition">
+          <div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-xl font-bold mb-6 shadow-md shadow-indigo-500/20">
+            <i class="fa-solid fa-laptop-code"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">Atrikasa sy Forum Métiers</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mb-6">Fitsidihana orinasa, fihaonana amin'ireo matihanina momba ny asa amin'ny hoavy sy fifanihoana amin'ny orinasa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. TARIFS SECTION -->
+  <section id="tarifs" class="py-24 bg-slate-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="text-xs font-bold text-emerald-400 bg-emerald-900/40 border border-emerald-500/30 px-3 py-1 rounded-full uppercase tracking-wider">Fandoavam-bola sy Sarim-pianarana</span>
+      <h2 data-cms="pricingTitle" class="text-3xl sm:text-4xl font-black text-white mt-3 mb-4">Sarim-pianarana sy Toetran'ny Fandoavana</h2>
+      <p data-cms="pricingSubtitle" class="text-slate-400 max-w-2xl mx-auto mb-16 text-sm sm:text-base">Sarim-pianarana mazava sy azo aloa amim-pahamora amin'ny fomba sy tetibola isan-karazany.</p>
+      <div class="grid md:grid-cols-3 gap-8 text-left">
+        <div class="bg-slate-800/80 border border-slate-700 p-8 rounded-3xl shadow-xl flex flex-col justify-between hover:border-blue-500 transition">
+          <div>
+            <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Primaire &amp; Collège</span>
+            <div class="text-3xl font-black text-white mt-4 mb-2">80 000 Ariary <span class="text-xs text-slate-400 font-normal">/ volana</span></div>
+            <p class="text-xs text-slate-400 mb-6">Droit d'inscription: 50 000 Ariary / taona</p>
+            <ul class="space-y-3 text-sm text-slate-300 mb-8">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-xs"></i> Fampianarana manara-penitra</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-xs"></i> Fampiasana Trano Famakiam-boky</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-xs"></i> Klioba Sport sy Kanto</li>
+            </ul>
+          </div>
+          <a href="#inscription" class="w-full bg-slate-700 hover:bg-blue-600 text-white text-center font-bold py-3 rounded-xl transition text-sm">
+            Misoratra Anarana
+          </a>
+        </div>
+        <div class="bg-gradient-to-b from-blue-900/80 to-slate-800 border-2 border-blue-500 p-8 rounded-3xl shadow-2xl relative flex flex-col justify-between transform md:-translate-y-4">
+          <span class="absolute -top-3.5 right-6 bg-blue-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow">Malaza Indrindra</span>
+          <div>
+            <span class="text-xs font-bold text-blue-300 uppercase tracking-widest">Lycée &amp; Baccalauréat</span>
+            <div class="text-4xl font-black text-white mt-4 mb-2">120 000 Ariary <span class="text-xs text-slate-300 font-normal">/ volana</span></div>
+            <p class="text-xs text-blue-200 mb-6">Droit d'inscription: 70 000 Ariary / taona</p>
+            <ul class="space-y-3 text-sm text-slate-200 mb-8">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-xs"></i> Laboratoara Informatika &amp; Siansa</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-xs"></i> Famerenana Bac sy Devoir Blanc</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-xs"></i> Fanomanana Concours Grandes Écoles</li>
+            </ul>
+          </div>
+          <a href="#inscription" class="w-full bg-blue-600 hover:bg-blue-500 text-white text-center font-bold py-3.5 rounded-xl transition shadow-lg text-sm">
+            Misoratra Anarana Izao
+          </a>
+        </div>
+        <div class="bg-slate-800/80 border border-slate-700 p-8 rounded-3xl shadow-xl flex flex-col justify-between hover:border-blue-500 transition">
+          <div>
+            <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">Formation Matihanina</span>
+            <div class="text-3xl font-black text-white mt-4 mb-2">150 000 Ariary <span class="text-xs text-slate-400 font-normal">/ modul</span></div>
+            <p class="text-xs text-slate-400 mb-6">Certificat neken'ny Fanjakana</p>
+            <ul class="space-y-3 text-sm text-slate-300 mb-8">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-xs"></i> Fampiharana amin'ny Orinasa (Stage)</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-xs"></i> Fitaovana informatika sy Internet fast</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-xs"></i> Mpanazatra orinasa mivantana</li>
+            </ul>
+          </div>
+          <a href="#inscription" class="w-full bg-slate-700 hover:bg-blue-600 text-white text-center font-bold py-3 rounded-xl transition text-sm">
+            Misoratra Anarana
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. TEMOIGNAGES SECTION -->
+  <section id="temoignages" class="py-24 bg-slate-50 text-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="text-xs font-bold text-blue-600 bg-blue-100 border border-blue-200 px-3 py-1 rounded-full uppercase tracking-wider">Teny Fankasitrahana</span>
+      <h2 data-cms="testimonialsTitle" class="text-3xl sm:text-4xl font-black text-slate-900 mt-3 mb-4">Teny avy amin'ny Ray Aman-Dreny sy Mpianatra</h2>
+      <p data-cms="testimonialsSubtitle" class="text-slate-600 max-w-2xl mx-auto mb-16 text-sm sm:text-base">Jereo ny fanehoan-kevitr'ireo efa nianatra sy nahazo vokatra tsara ato amin'ny sekoly.</p>
+      <div class="grid md:grid-cols-3 gap-8 text-left">
+        <div class="bg-white p-8 rounded-3xl border border-slate-200/80 shadow-md flex flex-col justify-between">
+          <p class="text-slate-600 text-sm leading-relaxed mb-6 italic">"Afaka soa aman-tsara tamin'ny fanadinana Baccalaureate ny zanako lahy tamin'ny mention Very Good. Isaorana ny mpampianatra rehetra amin'ny fanarahana maso akaiky."</p>
+          <div class="flex items-center gap-4 border-t border-slate-100 pt-4">
+            <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">R</div>
+            <div>
+              <h4 class="font-bold text-slate-900 text-sm">Mme. Rasoarimalala Clara</h4>
+              <p class="text-xs text-slate-500">Ray aman-drenin'i Toky (Bac S)</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white p-8 rounded-3xl border border-slate-200/80 shadow-md flex flex-col justify-between">
+          <p class="text-slate-600 text-sm leading-relaxed mb-6 italic">"Tena tsara ny fampianarana Informatika sy Anglisy. Avy hatrany dia nahazo asa amin'ny Orinasa lehibe iray eto Antananarivo aho rehefa nahazo ny Certificat."</p>
+          <div class="flex items-center gap-4 border-t border-slate-100 pt-4">
+            <div class="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold">A</div>
+            <div>
+              <h4 class="font-bold text-slate-900 text-sm">Andry Rajohnson</h4>
+              <p class="text-xs text-slate-500">Mpianatra Formation Matihanina</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white p-8 rounded-3xl border border-slate-200/80 shadow-md flex flex-col justify-between">
+          <p class="text-slate-600 text-sm leading-relaxed mb-6 italic">"Iray amin'ireo sekoly manana fitaovana maoderina sy fifehezana mavesatra indrindra. Milamina ny ankizy ary mazava ny fifandraisana amin'ny ray aman-dreny."</p>
+          <div class="flex items-center gap-4 border-t border-slate-100 pt-4">
+            <div class="w-10 h-10 rounded-full bg-amber-600 text-white flex items-center justify-center font-bold">M</div>
+            <div>
+              <h4 class="font-bold text-slate-900 text-sm">Dr. Michel Andriamanitra</h4>
+              <p class="text-xs text-slate-500">Ray aman-dreny (Primaire sy Collège)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. FAQ SECTION -->
+  <section id="faq" class="py-24 bg-white text-slate-800 border-t border-slate-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="text-xs font-bold text-blue-600 bg-blue-50 border border-blue-200 px-3 py-1 rounded-full uppercase tracking-wider">Fanontaniana Matetika</span>
+        <h2 data-cms="faqTitle" class="text-3xl sm:text-4xl font-black text-slate-900 mt-3">Ireo Fanontaniana Matetika Apetraka (FAQ)</h2>
+        <p data-cms="faqSubtitle" class="text-slate-600 mt-2 text-sm sm:text-base">Valiny mazava momba ny fidirana, fitaovana ary fifehezana ato amin'ny sekoly.</p>
+      </div>
+      <div class="space-y-4">
+        <div class="border border-slate-200 rounded-2xl p-6 bg-slate-50/50 hover:bg-slate-50 transition cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex justify-between items-center font-bold text-slate-900 text-base sm:text-lg">
+            <span>Inona avy ireo taratasy ilaina amin'ny fidirana ho mpianatra vaovao?</span>
+            <i class="fa-solid fa-plus text-blue-600 transition transform duration-300"></i>
+          </div>
+          <p class="text-slate-600 text-sm mt-3 hidden leading-relaxed">Taratasy ilaina: Kopia nahitana fahaterahana, bulletin de note taona lasa, sary 4x4 roa, ary ny taratasy fisoratana anarana fenoina eto amin'ny tranonkala na ao amin'ny secretariat.</p>
+        </div>
+        <div class="border border-slate-200 rounded-2xl p-6 bg-slate-50/50 hover:bg-slate-50 transition cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex justify-between items-center font-bold text-slate-900 text-base sm:text-lg">
+            <span>Misy fomba fandoavana sarim-pianarana amin'ny Mobile Money ve?</span>
+            <i class="fa-solid fa-plus text-blue-600 transition transform duration-300"></i>
+          </div>
+          <p class="text-slate-600 text-sm mt-3 hidden leading-relaxed">Eny, azo aloa amin'ny MVola, Orange Money na Airtel Money ny sarim-pianarana rehetra mba hanamora ny fanaovana izany amin'ny fotoana rehetra.</p>
+        </div>
+        <div class="border border-slate-200 rounded-2xl p-6 bg-slate-50/50 hover:bg-slate-50 transition cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex justify-between items-center font-bold text-slate-900 text-base sm:text-lg">
+            <span>Moa ve misy fitaterana sy cantine ho an'ny mpianatra?</span>
+            <i class="fa-solid fa-plus text-blue-600 transition transform duration-300"></i>
+          </div>
+          <p class="text-slate-600 text-sm mt-3 hidden leading-relaxed">Eny, manana bus manokana sy cantine mitondra sakafo mafana sy madio ny sekoly ho an'ireo ray aman-dreny maniry izany service izany.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. INSCRIPTION ONLINE SECTION -->
+  <section id="inscription" class="py-24 bg-gradient-to-br from-blue-900 via-slate-900 to-slate-950 text-white relative overflow-hidden">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-12">
+        <span class="text-xs font-bold text-blue-300 bg-blue-500/20 border border-blue-400/30 px-3 py-1 rounded-full uppercase tracking-wider">Fisoranana Anarana Online</span>
+        <h2 data-cms="enrollTitle" class="text-3xl sm:text-4xl font-black text-white mt-3">Formulaire Fidirana amin'ny Internet</h2>
+        <p data-cms="enrollSubtitle" class="text-blue-100 mt-2 text-sm sm:text-base">Fenoy ireto mombamomba anao sy ny zanakao ireto hananganana ny dosie mialoha.</p>
+      </div>
+      <div class="bg-slate-900/90 border border-slate-800 p-8 sm:p-10 rounded-3xl shadow-2xl backdrop-blur">
+        <form id="enrollment-form" class="space-y-6">
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-2 uppercase tracking-wider">Anaran'ny Mpianatra</label>
+              <input type="text" id="enroll-student-name" required placeholder="Anarana sy Fanampiny" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-blue-500 transition">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-2 uppercase tracking-wider">Taona sy Daty Nahaterahana</label>
+              <input type="date" id="enroll-dob" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-blue-500 transition">
+            </div>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-2 uppercase tracking-wider">Kilasy na Fampianarana Tiana</label>
+              <select id="enroll-class" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-blue-500 transition">
+                <option value="Primaire / Collège">Primaire na Collège</option>
+                <option value="Lycée Scientifique">Lycée Serie C / D / S</option>
+                <option value="Lycée Littéraire">Lycée Serie A / L</option>
+                <option value="Formation Matihanina IT">Formation Matihanina Informatika</option>
+                <option value="Formation Langues">Cours de Langues (Anglais/Français)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-2 uppercase tracking-wider">Anaran'ny Ray aman-Dreny / Tuteur</label>
+              <input type="text" id="enroll-parent-name" required placeholder="Anaran'ny Ray na Reny" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-blue-500 transition">
+            </div>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-2 uppercase tracking-wider">Laharana Finday / WhatsApp</label>
+              <input type="tel" id="enroll-phone" required placeholder="034 00 000 00" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-blue-500 transition">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-2 uppercase tracking-wider">Mailaka (Email)</label>
+              <input type="email" id="enroll-email" placeholder="ohatra@gmail.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-blue-500 transition">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-2 uppercase tracking-wider">Fanamarihana na Fanontaniana fanampiny</label>
+            <textarea id="enroll-notes" rows="3" placeholder="Soraty eto ny fanampim-panazavana..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-blue-500 transition"></textarea>
+          </div>
+          <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black text-base py-4 rounded-xl shadow-xl shadow-blue-600/30 transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-paper-plane"></i> Alefaso ny Demande d'Inscription
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. CONTACT SECTION -->
+  <section id="contact" class="py-24 bg-slate-950 text-white border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="space-y-6">
+          <span class="text-xs font-bold text-blue-400 bg-blue-950 border border-blue-500/30 px-3 py-1 rounded-full uppercase tracking-wider">Adiresy sy Fifandraisana</span>
+          <h2 data-cms="contactTitle" class="text-3xl sm:text-4xl font-black text-white">Raikitra sy Misokatra ho Anao Avokoa</h2>
+          <p data-cms="contactSubtitle" class="text-slate-400 text-sm sm:text-base leading-relaxed">
+            Aza misalasala mifandray amin'ny Secretariat sy ny Fitantanana amin'ireo adiresy sy laharana etsy ambany.
+          </p>
+          <div class="space-y-4 pt-4">
+            <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-900 border border-slate-800">
+              <div class="w-10 h-10 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center font-bold text-lg border border-blue-500/30 shrink-0">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-white text-sm">Adiresy Fizika</h4>
+                <p data-cms="contactAddress" class="text-xs text-slate-400 mt-0.5">Lot IVG 45 Bis, Boulevard de l'Éducation, Antananarivo 101, Madagascar</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-900 border border-slate-800">
+              <div class="w-10 h-10 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center font-bold text-lg border border-emerald-500/30 shrink-0">
+                <i class="fa-brands fa-whatsapp"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-white text-sm">WhatsApp &amp; Telefonina</h4>
+                <p class="text-xs text-slate-400 mt-0.5"><strong data-cms="whatsapp" class="text-emerald-400">+261 34 00 000 00</strong> / +261 32 00 000 00</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-900 border border-slate-800">
+              <div class="w-10 h-10 rounded-xl bg-amber-600/20 text-amber-400 flex items-center justify-center font-bold text-lg border border-amber-500/30 shrink-0">
+                <i class="fa-regular fa-clock"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-white text-sm">Ora Fisokafana</h4>
+                <p data-cms="contactHours" class="text-xs text-slate-400 mt-0.5">Lundi - Vendredi: 07h30 - 17h00 | Samedi: 08h00 - 12h00</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-3xl overflow-hidden shadow-2xl h-80 flex items-center justify-center relative">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3774.228228385417!2d47.52558631500001!3d-18.91368298718228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x21f07e158d3c11e7%3A0x6d97e743a12d12f3!2sAntananarivo!5e0!3m2!1sfr!2smg!4v1620000000000!5m2!1sfr!2smg" class="w-full h-full rounded-2xl border-0" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-950 border-t border-slate-800 text-slate-400 py-12 text-sm text-center space-y-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p data-cms="footerText">Sekoly Matihanina — Fampianarana Miankina sy Tsy Miankina. Zo rehetra voatokana &copy; 2026.</p>
+    </div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a data-cms-wa-link href="https://wa.me/261340000000" target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-500 text-slate-950 w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-3xl hover:scale-110 transition duration-300 font-bold border-2 border-white/20">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- DEVWEBIA MANDATORY BADGE -->
+  <div class="fixed bottom-4 left-4 z-50 bg-slate-900/90 text-white text-xs font-bold px-3.5 py-2 rounded-full shadow-2xl border border-slate-700 backdrop-blur flex items-center gap-1.5">
+    ✨ Fait avec DEVWEBIA
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
