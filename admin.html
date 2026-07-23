@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="mg">
+<head>
+  <meta charset="UTF-8">
+  <title>Fitantanana Sekoly — DEVWEBIA Back-Office</title>
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="firebase.js"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex items-center justify-center p-4 font-sans">
+
+  <!-- LOGIN BOX -->
+  <div id="login-box" class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl">
+    <div class="text-center mb-6">
+      <div class="w-16 h-16 bg-blue-600/20 text-blue-400 rounded-2xl mx-auto flex items-center justify-center text-2xl mb-3 border border-blue-500/30">
+        <i class="fa-solid fa-user-shield"></i>
+      </div>
+      <h2 class="text-2xl font-black text-white">Fitantanana Sekoly</h2>
+      <p class="text-xs text-slate-400 mt-1">Espace Administrateur Sécurisé par DEVWEBIA</p>
+    </div>
+    <form id="pin-form" class="space-y-5">
+      <div>
+        <label class="block text-xs font-bold text-slate-300 mb-2 uppercase tracking-wider">Code PIN Hidirona</label>
+        <input type="password" id="pin-input" placeholder="••••" required class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3.5 text-center text-3xl font-black tracking-widest text-white focus:outline-none focus:border-blue-500 transition">
+      </div>
+      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-2xl transition shadow-xl shadow-blue-600/30 flex items-center justify-center gap-2">
+        <i class="fa-solid fa-lock"></i> Hiditra ao amin'ny Admin
+      </button>
+    </form>
+  </div>
+
+  <!-- MAIN ADMIN PANEL -->
+  <div id="admin-panel" class="hidden max-w-5xl w-full bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl my-8">
+    <div class="flex flex-wrap justify-between items-center gap-4 mb-8 border-b border-slate-800 pb-6">
+      <div>
+        <h2 class="text-2xl font-black text-white flex items-center gap-3">
+          <span>Fitantanana ny Tranonkalan'ny Sekoly</span>
+          <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-3 py-1 rounded-full font-bold">🔒 Sécurisé</span>
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">Ovay eto ny text, sary, fampianarana, SEO, PWA ary ny DNS-ny domain.</p>
+      </div>
+      <button id="logout-btn" class="bg-red-600/20 text-red-400 hover:bg-red-600/30 px-4 py-2.5 rounded-xl text-xs font-bold transition border border-red-500/30 flex items-center gap-2">
+        <i class="fa-solid fa-right-from-bracket"></i> Hivoaka
+      </button>
+    </div>
+
+    <div id="status-toast" class="hidden mb-6 p-4 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-200 text-sm font-bold flex items-center gap-2">
+      <i class="fa-solid fa-circle-check text-lg"></i>
+      <span>Voatahiry sy voaova soa aman-tsara ny tranonkala!</span>
+    </div>
+
+    <form id="cms-form" class="space-y-8">
+      <!-- 1. IDENTITÉ & LOGO -->
+      <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4">
+        <h3 class="text-base font-bold text-blue-400 flex items-center gap-2">
+          <i class="fa-solid fa-id-card"></i> 1. Anaran'ny Sekoly &amp; Logo
+        </h3>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Anaran'ny Sekoly</label>
+            <input type="text" id="cms-siteTitle" value="Sekoly Matihanina Lycée &amp; Université" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Slogan / Teny Filamatra</label>
+            <input type="text" id="cms-siteSlogan" value="✨ Fampianarana Manara-penitra sy Matihanina" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Logo (Mila sary amin'ny kompitera na URL)</label>
+          <div class="flex flex-col sm:flex-row gap-3 items-center">
+            <input type="file" id="cms-logoFile" accept="image/*" class="text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer">
+            <input type="text" id="cms-siteLogo" placeholder="Na apetraho eto ny URL d'image" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500">
+          </div>
+          <div id="logo-preview" class="mt-3 hidden">
+            <img id="logo-preview-img" src="" class="h-14 w-auto object-contain rounded-xl border border-slate-800 p-1 bg-slate-900">
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. HERO PRINCIPAL -->
+      <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4">
+        <h3 class="text-base font-bold text-blue-400 flex items-center gap-2">
+          <i class="fa-solid fa-house"></i> 2. Fandraisana (Hero Principal)
+        </h3>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Lohateny Lehibe Fandraisana</label>
+          <input type="text" id="cms-heroTitle" value="Azo antoka ny hoavin'ny zanakao sy ny fianarany" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Fehezanteny Fampidirana</label>
+          <textarea id="cms-heroSubtitle" rows="3" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500">Sekoly feno sy matihanina manana traikefa ampolony taona. Mitondra fampianarana miompana amin'ny fahaizana amam-pahalalana, fahaiza-miaina, ary teknolojia vaovao.</textarea>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Soratra amin'ny Bokotra CTA</label>
+            <input type="text" id="cms-heroCta" value="Misoratra Anarana Izao" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Sary Hero (Upload na URL)</label>
+            <div class="flex gap-2 items-center">
+              <input type="file" id="cms-heroImgFile" accept="image/*" class="text-xs text-slate-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:bg-blue-600 file:text-white cursor-pointer">
+              <input type="text" id="cms-heroImage" placeholder="URL Sary" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Dynamic Section Builder (Ajouter Section Sur-Mesure) -->
+      <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4">
+        <h3 class="text-base font-bold text-indigo-400 flex items-center gap-2">
+          <i class="fa-solid fa-layer-group"></i> 3. ➕ Ampio Fizarana Vaovao (Section Sur-Mesure)
+        </h3>
+        <p class="text-xs text-slate-400">Azo ampidirina amin'ny tranonkala ny fizarana manokana araka izay tianao.</p>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <input type="text" id="custom-sec-title" placeholder="Lohatenin'ny Fizarana Vaovao" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+          <select id="custom-sec-bg" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+            <option value="light">Fond Maivana (White / Slate-50)</option>
+            <option value="dark">Fond Maizina (Slate-900 / Blue)</option>
+          </select>
+        </div>
+        <textarea id="custom-sec-content" rows="3" placeholder="Fehezanteny na fanazavana feno ao amin'ity fizarana ity..." class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"></textarea>
+        <button type="button" id="add-custom-sec-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs px-5 py-2.5 rounded-xl shadow transition flex items-center gap-2">
+          <i class="fa-solid fa-plus"></i> Ampidiro ao amin'ny Site
+        </button>
+      </div>
+
+      <!-- 4. AUTO-SEO & Google Ping Simulator -->
+      <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4">
+        <h3 class="text-base font-bold text-amber-400 flex items-center gap-2">
+          <i class="fa-solid fa-magnifying-glass"></i> 4. AUTO-SEO &amp; Indexation Google
+        </h3>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Méta-Titre Google</label>
+            <input type="text" id="cms-metaTitle" value="Sekoly Matihanina Lycée &amp; Université" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Keywords Google (Mots-Clés)</label>
+            <input type="text" id="cms-metaKeywords" value="sekoly, fampianarana, madagascar, university, lycee, fanadinana, devwebia" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Méta-Description Google</label>
+          <textarea id="cms-metaDesc" rows="2" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">Sekoly matihanina manomana ny tanora ho amin'ny hoavy mamiratra. Fampianarana manara-penitra sy fitaovana arifomba.</textarea>
+        </div>
+
+        <!-- Google Search Snippet Preview -->
+        <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 space-y-1">
+          <p class="text-xs text-slate-400 font-bold mb-2">Fisehoana amin'ny Google Search:</p>
+          <p class="text-xs text-emerald-400 font-mono truncate">https://sekoly.mg › index.html</p>
+          <p id="seo-preview-title" class="text-base font-bold text-blue-400 hover:underline cursor-pointer truncate">Sekoly Matihanina Lycée &amp; Université</p>
+          <p id="seo-preview-desc" class="text-xs text-slate-300 line-clamp-2">Sekoly matihanina manomana ny tanora ho amin'ny hoavy mamiratra.</p>
+        </div>
+
+        <button type="button" id="seo-ping-btn" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-3.5 rounded-2xl transition shadow-lg flex items-center justify-center gap-2 text-sm">
+          <i class="fa-solid fa-rocket"></i> 🚀 Lancer la Demande d'Indexation Google (Google Ping)
+        </button>
+        <div id="seo-ping-status" class="hidden text-xs text-emerald-400 bg-emerald-500/10 p-3 rounded-xl border border-emerald-500/20"></div>
+      </div>
+
+      <!-- 5. CONFIGURATION PWA -->
+      <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4">
+        <h3 class="text-base font-bold text-blue-400 flex items-center gap-2">
+          <i class="fa-solid fa-mobile-screen-button"></i> 5. Application PWA sy Logo Mobile
+        </h3>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Anaran'ny Application Smartphone</label>
+            <input type="text" id="cms-pwaName" value="Sekoly Matihanina" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Lokon'ny Thème Mobile</label>
+            <input type="color" id="cms-pwaThemeColor" value="#1e40af" class="w-full h-10 bg-slate-900 border border-slate-800 rounded-xl p-1 cursor-pointer">
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. DOMAINE & CONFIGURATION DNS -->
+      <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-3">
+        <h3 class="text-base font-bold text-emerald-400 flex items-center gap-2">
+          <i class="fa-solid fa-globe"></i> 6. Configuration Domaine &amp; DNS (.mg na .com)
+        </h3>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Raha manana nom de domaine manokana ianao (ohatra: <code>sekoly.mg</code> na <code>sekoli.com</code>), araho ireto paramètre DNS ireto ao amin'ny registrar-nao (NIC.mg, Hostinger, GoDaddy, sns.):
+        </p>
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-slate-200">
+          <div><strong class="text-blue-400">Enregistrement A (@):</strong> Pointé vers <code>76.76.21.21</code> (IP Vercel)</div>
+          <div><strong class="text-blue-400">Enregistrement CNAME (www):</strong> Pointé vers <code>cname.vercel-dns.com</code></div>
+        </div>
+        <p class="text-xs text-slate-400 italic">Ireo Certificat SSL (HTTPS) sy ny fampiarahana azy dia ho azy ho azy no mikarakara izany.</p>
+      </div>
+
+      <!-- 7. CONTACTS & FOOTER -->
+      <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4">
+        <h3 class="text-base font-bold text-blue-400 flex items-center gap-2">
+          <i class="fa-solid fa-address-book"></i> 7. Adiresy sy WhatsApp Reception
+        </h3>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Laharana WhatsApp handraisana hafatra</label>
+          <input type="text" id="cms-whatsapp" value="+261340000000" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Soratra ambany amin'ny Footer</label>
+          <textarea id="cms-footerText" rows="2" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500">Sekoly Matihanina — Fampianarana Miankina sy Tsy Miankina. Zo rehetra voatokana &copy; 2026.</textarea>
+        </div>
+      </div>
+
+      <!-- 8. PIN SECURITY -->
+      <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4">
+        <h3 class="text-base font-bold text-blue-400 flex items-center gap-2">
+          <i class="fa-solid fa-key"></i> 8. Ovay ny Code PIN Admin
+        </h3>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Code PIN Vaovao (Avela foana raha tsy hanova)</label>
+          <input type="password" id="cms-newPin" placeholder="Code PIN vaovao (ohatra: 1234)" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
+        </div>
+      </div>
+
+      <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-lg py-4 rounded-2xl transition shadow-2xl flex items-center justify-center gap-2">
+        <i class="fa-solid fa-floppy-disk"></i> Hitahiry sy Hamoaka amin'ny Tranonkala
+      </button>
+    </form>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
